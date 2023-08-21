@@ -1,0 +1,22 @@
+import requests
+from bs4 import BeautifulSoup
+
+for i in range(1, 250, 50):
+    html = requests.get(
+        f'https://www.imdb.com/search/title/?groups=top_250&sort=user_rating,desc&start={i}&ref_=adv_nxt').text
+    soup = BeautifulSoup(html, 'lxml')
+    next = soup.find('a', class_='lister-page-next next-page')
+    movies = soup.find_all('div', class_='lister-item-content')
+    for item in movies:
+        rank = item.find('span').text
+        name = item.find('a').text
+        year = item.find('span', class_='lister-item-year text-muted unbold').text
+        genre = item.find('span', class_='genre').text.replace("\n", "")
+        rating = item.find('strong').text
+        runtime = item.p.find('span', class_='runtime').text
+
+        with open('Top 250 Movies.txt', 'a', encoding='utf-8') as f:
+            f.write(f'Rank : {rank}  \nName : {name} \nYear : {year[-5:-1]} \nGenre : {genre} \nRating : {rating}  \nRuntime : {runtime}  \n\n')
+
+print("All Information Stored In File : Top 250 Movies.txt SuccessFully")
+
