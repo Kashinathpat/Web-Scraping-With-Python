@@ -1,0 +1,412 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="/manifest.json" />
+    <!--
+      Notice the use of  in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+    <script defer="" src="/static/js/bundle.js"></script>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700);
+    </style>
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i);
+    </style>
+    <style>
+      * {
+        margin: 0;
+        border: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --font-roboto: "Roboto Slab", serif;
+        --font-raleway: "Raleway", sans-serif;
+      }
+
+      body {
+        font-family: var(--font-roboto);
+        background-color: #212426;
+      }
+
+      .app {
+        padding: 4rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: 3rem;
+        letter-spacing: 0.9px;
+        background: linear-gradient(
+          90deg,
+          rgba(249, 211, 180, 1) 0%,
+          rgba(249, 211, 180, 0) 100%
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        width: -moz-fit-content;
+        width: fit-content;
+      }
+
+      .search {
+        width: 71%;
+        margin: 4rem 0 2rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 1.5rem 1.75rem;
+        border-radius: 3rem;
+        background: #1f2123;
+        box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+      }
+
+      .search input {
+        flex: 1 1;
+        border: none;
+        font-size: 1.5rem;
+        font-family: var(--font-raleway);
+        font-weight: 500;
+        padding-right: 1rem;
+
+        outline: none;
+        color: #a1a1a1;
+        background: #1f2123;
+      }
+
+      .search img {
+        width: 35px;
+        height: 35px;
+        cursor: pointer;
+      }
+
+      /* .search button {
+  padding: 20px 40px;
+  border-radius: 0.5rem;
+  margin-left: 15px;
+  color: #a1a1a1;
+  font-family: var(--font-raleway);
+  font-weight: 900;
+  letter-spacing: 0.75px;
+  font-size: 1.25rem;
+  cursor: pointer;
+  background: #1f2123;
+  -webkit-box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+  box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+} */
+
+      .empty {
+        width: 100%;
+        margin-top: 3rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .empty h2 {
+        font-size: 1.25rem;
+        color: #f9d3b4;
+        font-family: var(--font-raleway);
+      }
+
+      .container {
+        width: 100%;
+        margin-top: 3rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .movie {
+        width: 310px;
+        height: 460px;
+        margin: 1.5rem;
+
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        border: none;
+
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0, 1);
+        box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
+      }
+
+      .movie div:nth-of-type(1) {
+        position: absolute;
+        padding: 16px;
+        width: 100%;
+        opacity: 0;
+        top: 0;
+        color: #f9d3b4;
+      }
+
+      .movie:hover {
+        box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
+        transform: scale(1.05, 1.05);
+      }
+
+      .movie div:nth-of-type(2) {
+        width: 100%;
+        height: 100%;
+      }
+
+      .movie div:nth-of-type(2) img {
+        height: 100%;
+        width: 100%;
+      }
+
+      .movie div:nth-of-type(3) {
+        z-index: 2;
+        background-color: #343739;
+        padding: 16px 24px 24px 24px;
+
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+      }
+
+      .movie div:nth-of-type(3) span {
+        font-family: "Raleway", sans-serif;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 2px;
+        font-weight: 500;
+        color: #f0f0f0;
+      }
+
+      .movie div:nth-of-type(3) h3 {
+        margin-top: 5px;
+        font-family: "Roboto Slab", serif;
+        color: #f9d3b4;
+      }
+
+      .movie:hover div:nth-of-type(2) {
+        height: 100%;
+        opacity: 0.3;
+      }
+
+      .movie:hover div:nth-of-type(3) {
+        background-color: transparent;
+      }
+
+      .movie:hover div:nth-of-type(1) {
+        opacity: 1;
+      }
+
+      @media screen and (max-width: 600px) {
+        .app {
+          padding: 4rem 2rem;
+        }
+
+        .search {
+          padding: 1rem 1.75rem;
+          width: 100%;
+        }
+
+        .search input {
+          font-size: 1rem;
+        }
+
+        .search img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      @media screen and (max-width: 400px) {
+        .app {
+          padding: 4rem 1rem;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .container {
+          margin-top: 2rem;
+        }
+
+        .movie {
+          width: "100%";
+          margin: 1rem;
+        }
+      }
+      /*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8uL3NyYy9BcHAuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsU0FBUztFQUNULFNBQVM7RUFDVCxzQkFBc0I7QUFDeEI7O0FBRUE7RUFDRSxtQ0FBbUM7RUFDbkMscUNBQXFDO0FBQ3ZDOztBQUVBO0VBQ0UsK0JBQStCO0VBQy9CLHlCQUF5QjtBQUMzQjs7QUFFQTtFQUNFLGFBQWE7O0VBRWIsYUFBYTtFQUNiLHVCQUF1QjtFQUN2QixtQkFBbUI7RUFDbkIsc0JBQXNCO0FBQ3hCOztBQUVBO0VBQ0UsZUFBZTtFQUNmLHFCQUFxQjtFQUNyQjs7OztHQUlDO0VBQ0QscUJBQXFCO0VBQ3JCLDZCQUE2QjtFQUM3QixvQ0FBb0M7RUFDcEMsdUJBQWtCO0VBQWxCLGtCQUFrQjtBQUNwQjs7QUFFQTtFQUNFLFVBQVU7RUFDVixtQkFBbUI7O0VBRW5CLGFBQWE7RUFDYixtQkFBbUI7RUFDbkIsdUJBQXVCOztFQUV2Qix1QkFBdUI7RUFDdkIsbUJBQW1CO0VBQ25CLG1CQUFtQjtFQUVuQixzREFBc0Q7QUFDeEQ7O0FBRUE7RUFDRSxTQUFPO0VBQ1AsWUFBWTtFQUNaLGlCQUFpQjtFQUNqQixnQ0FBZ0M7RUFDaEMsZ0JBQWdCO0VBQ2hCLG1CQUFtQjs7RUFFbkIsYUFBYTtFQUNiLGNBQWM7RUFDZCxtQkFBbUI7QUFDckI7O0FBRUE7RUFDRSxXQUFXO0VBQ1gsWUFBWTtFQUNaLGVBQWU7QUFDakI7O0FBRUE7Ozs7Ozs7Ozs7Ozs7R0FhRzs7QUFFSDtFQUNFLFdBQVc7RUFDWCxnQkFBZ0I7O0VBRWhCLGFBQWE7RUFDYix1QkFBdUI7RUFDdkIsbUJBQW1CO0FBQ3JCOztBQUVBO0VBQ0Usa0JBQWtCO0VBQ2xCLGNBQWM7RUFDZCxnQ0FBZ0M7QUFDbEM7O0FBRUE7RUFDRSxXQUFXO0VBQ1gsZ0JBQWdCOztFQUVoQixhQUFhO0VBQ2IsdUJBQXVCO0VBQ3ZCLG1CQUFtQjtFQUNuQixlQUFlO0FBQ2pCOztBQUVBO0VBQ0UsWUFBWTtFQUNaLGFBQWE7RUFDYixjQUFjOztFQUVkLGtCQUFrQjtFQUNsQixtQkFBbUI7RUFDbkIsZ0JBQWdCO0VBQ2hCLFlBQVk7O0VBRVoscURBQXFEO0VBQ3JELGlEQUFpRDtBQUNuRDs7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQixhQUFhO0VBQ2IsV0FBVztFQUNYLFVBQVU7RUFDVixNQUFNO0VBQ04sY0FBYztBQUNoQjs7QUFFQTtFQUNFLGlEQUFpRDtFQUNqRCw0QkFBNEI7QUFDOUI7O0FBRUE7RUFDRSxXQUFXO0VBQ1gsWUFBWTtBQUNkOztBQUVBO0VBQ0UsWUFBWTtFQUNaLFdBQVc7QUFDYjs7QUFFQTtFQUNFLFVBQVU7RUFDVix5QkFBeUI7RUFDekIsNEJBQTRCOztFQUU1QixrQkFBa0I7RUFDbEIsU0FBUztFQUNULFFBQVE7RUFDUixPQUFPO0FBQ1Q7O0FBRUE7RUFDRSxrQ0FBa0M7RUFDbEMseUJBQXlCO0VBQ3pCLGVBQWU7RUFDZixtQkFBbUI7RUFDbkIsZ0JBQWdCO0VBQ2hCLGNBQWM7QUFDaEI7O0FBRUE7RUFDRSxlQUFlO0VBQ2YsaUNBQWlDO0VBQ2pDLGNBQWM7QUFDaEI7O0FBRUE7RUFDRSxZQUFZO0VBQ1osWUFBWTtBQUNkOztBQUVBO0VBQ0UsNkJBQTZCO0FBQy9COztBQUVBO0VBQ0UsVUFBVTtBQUNaOztBQUVBO0VBQ0U7SUFDRSxrQkFBa0I7RUFDcEI7O0VBRUE7SUFDRSxxQkFBcUI7SUFDckIsV0FBVztFQUNiOztFQUVBO0lBQ0UsZUFBZTtFQUNqQjs7RUFFQTtJQUNFLFdBQVc7SUFDWCxZQUFZO0VBQ2Q7QUFDRjs7QUFFQTtFQUNFO0lBQ0Usa0JBQWtCO0VBQ3BCOztFQUVBO0lBQ0UsZUFBZTtFQUNqQjs7RUFFQTtJQUNFLGdCQUFnQjtFQUNsQjs7RUFFQTtJQUNFLGFBQWE7SUFDYixZQUFZO0VBQ2Q7QUFDRiIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgdXJsKFwiaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3M/ZmFtaWx5PVJvYm90bytTbGFiOjEwMCwzMDAsNDAwLDcwMFwiKTtcclxuQGltcG9ydCB1cmwoXCJodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2Nzcz9mYW1pbHk9UmFsZXdheTozMDAsMzAwaSw0MDAsNDAwaSw1MDAsNTAwaSw2MDAsNjAwaSw3MDAsNzAwaSw4MDAsODAwaSw5MDAsOTAwaVwiKTtcclxuXHJcbioge1xyXG4gIG1hcmdpbjogMDtcclxuICBib3JkZXI6IDA7XHJcbiAgYm94LXNpemluZzogYm9yZGVyLWJveDtcclxufVxyXG5cclxuOnJvb3Qge1xyXG4gIC0tZm9udC1yb2JvdG86IFwiUm9ib3RvIFNsYWJcIiwgc2VyaWY7XHJcbiAgLS1mb250LXJhbGV3YXk6IFwiUmFsZXdheVwiLCBzYW5zLXNlcmlmO1xyXG59XHJcblxyXG5ib2R5IHtcclxuICBmb250LWZhbWlseTogdmFyKC0tZm9udC1yb2JvdG8pO1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICMyMTI0MjY7XHJcbn1cclxuXHJcbi5hcHAge1xyXG4gIHBhZGRpbmc6IDRyZW07XHJcblxyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG59XHJcblxyXG5oMSB7XHJcbiAgZm9udC1zaXplOiAzcmVtO1xyXG4gIGxldHRlci1zcGFjaW5nOiAwLjlweDtcclxuICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQoXHJcbiAgICA5MGRlZyxcclxuICAgIHJnYmEoMjQ5LCAyMTEsIDE4MCwgMSkgMCUsXHJcbiAgICByZ2JhKDI0OSwgMjExLCAxODAsIDApIDEwMCVcclxuICApO1xyXG4gIGJhY2tncm91bmQtY2xpcDogdGV4dDtcclxuICAtd2Via2l0LWJhY2tncm91bmQtY2xpcDogdGV4dDtcclxuICAtd2Via2l0LXRleHQtZmlsbC1jb2xvcjogdHJhbnNwYXJlbnQ7XHJcbiAgd2lkdGg6IGZpdC1jb250ZW50O1xyXG59XHJcblxyXG4uc2VhcmNoIHtcclxuICB3aWR0aDogNzElO1xyXG4gIG1hcmdpbjogNHJlbSAwIDJyZW07XHJcblxyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuXHJcbiAgcGFkZGluZzogMS41cmVtIDEuNzVyZW07XHJcbiAgYm9yZGVyLXJhZGl1czogM3JlbTtcclxuICBiYWNrZ3JvdW5kOiAjMWYyMTIzO1xyXG4gIC13ZWJraXQtYm94LXNoYWRvdzogNXB4IDVweCA3cHggIzFjMWQxZiwgLTVweCAtNXB4IDdweCAjMjIyNTI3O1xyXG4gIGJveC1zaGFkb3c6IDVweCA1cHggN3B4ICMxYzFkMWYsIC01cHggLTVweCA3cHggIzIyMjUyNztcclxufVxyXG5cclxuLnNlYXJjaCBpbnB1dCB7XHJcbiAgZmxleDogMTtcclxuICBib3JkZXI6IG5vbmU7XHJcbiAgZm9udC1zaXplOiAxLjVyZW07XHJcbiAgZm9udC1mYW1pbHk6IHZhcigtLWZvbnQtcmFsZXdheSk7XHJcbiAgZm9udC13ZWlnaHQ6IDUwMDtcclxuICBwYWRkaW5nLXJpZ2h0OiAxcmVtO1xyXG5cclxuICBvdXRsaW5lOiBub25lO1xyXG4gIGNvbG9yOiAjYTFhMWExO1xyXG4gIGJhY2tncm91bmQ6ICMxZjIxMjM7XHJcbn1cclxuXHJcbi5zZWFyY2ggaW1nIHtcclxuICB3aWR0aDogMzVweDtcclxuICBoZWlnaHQ6IDM1cHg7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG59XHJcblxyXG4vKiAuc2VhcmNoIGJ1dHRvbiB7XHJcbiAgcGFkZGluZzogMjBweCA0MHB4O1xyXG4gIGJvcmRlci1yYWRpdXM6IDAuNXJlbTtcclxuICBtYXJnaW4tbGVmdDogMTVweDtcclxuICBjb2xvcjogI2ExYTFhMTtcclxuICBmb250LWZhbWlseTogdmFyKC0tZm9udC1yYWxld2F5KTtcclxuICBmb250LXdlaWdodDogOTAwO1xyXG4gIGxldHRlci1zcGFjaW5nOiAwLjc1cHg7XHJcbiAgZm9udC1zaXplOiAxLjI1cmVtO1xyXG4gIGN1cnNvcjogcG9pbnRlcjtcclxuICBiYWNrZ3JvdW5kOiAjMWYyMTIzO1xyXG4gIC13ZWJraXQtYm94LXNoYWRvdzogNXB4IDVweCA3cHggIzFjMWQxZiwgLTVweCAtNXB4IDdweCAjMjIyNTI3O1xyXG4gIGJveC1zaGFkb3c6IDVweCA1cHggN3B4ICMxYzFkMWYsIC01cHggLTVweCA3cHggIzIyMjUyNztcclxufSAqL1xyXG5cclxuLmVtcHR5IHtcclxuICB3aWR0aDogMTAwJTtcclxuICBtYXJnaW4tdG9wOiAzcmVtO1xyXG5cclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5lbXB0eSBoMiB7XHJcbiAgZm9udC1zaXplOiAxLjI1cmVtO1xyXG4gIGNvbG9yOiAjZjlkM2I0O1xyXG4gIGZvbnQtZmFtaWx5OiB2YXIoLS1mb250LXJhbGV3YXkpO1xyXG59XHJcblxyXG4uY29udGFpbmVyIHtcclxuICB3aWR0aDogMTAwJTtcclxuICBtYXJnaW4tdG9wOiAzcmVtO1xyXG5cclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgZmxleC13cmFwOiB3cmFwO1xyXG59XHJcblxyXG4ubW92aWUge1xyXG4gIHdpZHRoOiAzMTBweDtcclxuICBoZWlnaHQ6IDQ2MHB4O1xyXG4gIG1hcmdpbjogMS41cmVtO1xyXG5cclxuICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgYm9yZGVyLXJhZGl1czogMTJweDtcclxuICBvdmVyZmxvdzogaGlkZGVuO1xyXG4gIGJvcmRlcjogbm9uZTtcclxuXHJcbiAgdHJhbnNpdGlvbjogYWxsIDAuNHMgY3ViaWMtYmV6aWVyKDAuMTc1LCAwLjg4NSwgMCwgMSk7XHJcbiAgYm94LXNoYWRvdzogMHB4IDEzcHggMTBweCAtN3B4IHJnYmEoMCwgMCwgMCwgMC4xKTtcclxufVxyXG5cclxuLm1vdmllIGRpdjpudGgtb2YtdHlwZSgxKSB7XHJcbiAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gIHBhZGRpbmc6IDE2cHg7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgb3BhY2l0eTogMDtcclxuICB0b3A6IDA7XHJcbiAgY29sb3I6ICNmOWQzYjQ7XHJcbn1cclxuXHJcbi5tb3ZpZTpob3ZlciB7XHJcbiAgYm94LXNoYWRvdzogMHB4IDMwcHggMThweCAtOHB4IHJnYmEoMCwgMCwgMCwgMC4xKTtcclxuICB0cmFuc2Zvcm06IHNjYWxlKDEuMDUsIDEuMDUpO1xyXG59XHJcblxyXG4ubW92aWUgZGl2Om50aC1vZi10eXBlKDIpIHtcclxuICB3aWR0aDogMTAwJTtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbn1cclxuXHJcbi5tb3ZpZSBkaXY6bnRoLW9mLXR5cGUoMikgaW1nIHtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbn1cclxuXHJcbi5tb3ZpZSBkaXY6bnRoLW9mLXR5cGUoMykge1xyXG4gIHotaW5kZXg6IDI7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogIzM0MzczOTtcclxuICBwYWRkaW5nOiAxNnB4IDI0cHggMjRweCAyNHB4O1xyXG5cclxuICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgYm90dG9tOiAwO1xyXG4gIHJpZ2h0OiAwO1xyXG4gIGxlZnQ6IDA7XHJcbn1cclxuXHJcbi5tb3ZpZSBkaXY6bnRoLW9mLXR5cGUoMykgc3BhbiB7XHJcbiAgZm9udC1mYW1pbHk6IFwiUmFsZXdheVwiLCBzYW5zLXNlcmlmO1xyXG4gIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7XHJcbiAgZm9udC1zaXplOiAxM3B4O1xyXG4gIGxldHRlci1zcGFjaW5nOiAycHg7XHJcbiAgZm9udC13ZWlnaHQ6IDUwMDtcclxuICBjb2xvcjogI2YwZjBmMDtcclxufVxyXG5cclxuLm1vdmllIGRpdjpudGgtb2YtdHlwZSgzKSBoMyB7XHJcbiAgbWFyZ2luLXRvcDogNXB4O1xyXG4gIGZvbnQtZmFtaWx5OiBcIlJvYm90byBTbGFiXCIsIHNlcmlmO1xyXG4gIGNvbG9yOiAjZjlkM2I0O1xyXG59XHJcblxyXG4ubW92aWU6aG92ZXIgZGl2Om50aC1vZi10eXBlKDIpIHtcclxuICBoZWlnaHQ6IDEwMCU7XHJcbiAgb3BhY2l0eTogMC4zO1xyXG59XHJcblxyXG4ubW92aWU6aG92ZXIgZGl2Om50aC1vZi10eXBlKDMpIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiB0cmFuc3BhcmVudDtcclxufVxyXG5cclxuLm1vdmllOmhvdmVyIGRpdjpudGgtb2YtdHlwZSgxKSB7XHJcbiAgb3BhY2l0eTogMTtcclxufVxyXG5cclxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogNjAwcHgpIHtcclxuICAuYXBwIHtcclxuICAgIHBhZGRpbmc6IDRyZW0gMnJlbTtcclxuICB9XHJcblxyXG4gIC5zZWFyY2gge1xyXG4gICAgcGFkZGluZzogMXJlbSAxLjc1cmVtO1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgfVxyXG5cclxuICAuc2VhcmNoIGlucHV0IHtcclxuICAgIGZvbnQtc2l6ZTogMXJlbTtcclxuICB9XHJcblxyXG4gIC5zZWFyY2ggaW1nIHtcclxuICAgIHdpZHRoOiAyMHB4O1xyXG4gICAgaGVpZ2h0OiAyMHB4O1xyXG4gIH1cclxufVxyXG5cclxuQG1lZGlhIHNjcmVlbiBhbmQgKG1heC13aWR0aDogNDAwcHgpIHtcclxuICAuYXBwIHtcclxuICAgIHBhZGRpbmc6IDRyZW0gMXJlbTtcclxuICB9XHJcblxyXG4gIGgxIHtcclxuICAgIGZvbnQtc2l6ZTogMnJlbTtcclxuICB9XHJcblxyXG4gIC5jb250YWluZXIge1xyXG4gICAgbWFyZ2luLXRvcDogMnJlbTtcclxuICB9XHJcblxyXG4gIC5tb3ZpZSB7XHJcbiAgICB3aWR0aDogXCIxMDAlXCI7XHJcbiAgICBtYXJnaW46IDFyZW07XHJcbiAgfVxyXG59Il0sInNvdXJjZVJvb3QiOiIifQ== */
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+      <div class="app">
+        <h1>MovieLand</h1>
+        <div class="search">
+          <input placeholder="Search for movies" value="Batman" /><img
+            src="/static/media/search.b416605642fcb3f2447edc96c1a80e05.svg"
+            alt="search"
+          />
+        </div>
+        <div class="container">
+          <div class="movie">
+            <div><p>2005</p></div>
+            <div>
+              <img
+                src="https://m.media-amazon.com/images/M/MV5BOTY4YjI2N2MtYmFlMC00ZjcyLTg3YjEtMDQyM2ZjYzQ5YWFkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+                alt="Batman Begins"
+              />
+            </div>
+            <div>
+              <span>movie</span>
+              <h3>Batman Begins</h3>
+            </div>
+          </div>
+          <div class="movie">
+            <div><p>2016</p></div>
+            <div>
+              <img
+                src="https://m.media-amazon.com/images/M/MV5BYThjYzcyYzItNTVjNy00NDk0LTgwMWQtYjMwNmNlNWJhMzMyXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg"
+                alt="Batman v Superman: Dawn of Justice"
+              />
+            </div>
+            <div>
+              <span>movie</span>
+              <h3>Batman v Superman: Dawn of Justice</h3>
+            </div>
+          </div>
+          <div class="movie">
+            <div><p>2022</p></div>
+            <div>
+              <img
+                src="https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_SX300.jpg"
+                alt="The Batman"
+              />
+            </div>
+            <div>
+              <span>movie</span>
+              <h3>The Batman</h3>
+            </div>
+          </div>
+          <div class="movie">
+            <div><p>1989</p></div>
+            <div>
+              <img
+                src="https://m.media-amazon.com/images/M/MV5BMTYwNjAyODIyMF5BMl5BanBnXkFtZTYwNDMwMDk2._V1_SX300.jpg"
+                alt="Batman"
+              />
+            </div>
+            <div>
+              <span>movie</span>
+              <h3>Batman</h3>
+            </div>
+          </div>
+          <div class="movie">
+            <div><p>1992</p></div>
+            <div>
+              <img
+                src="https://m.media-amazon.com/images/M/MV5BOGZmYzVkMmItM2NiOS00MDI3LWI4ZWQtMTg0YWZkODRkMmViXkEyXkFqcGdeQXVyODY0NzcxNw@@._V1_SX300.jpg"
+                alt="Batman Returns"
+              />
+            </div>
+            <div>
+              <span>movie</span>
+              <h3>Batman Returns</h3>
+            </div>
+          </div>
+          <div class="movie">
+            <div><p>1997</p></div>
+            <div>
+              <img
+                src="https://m.media-amazon.com/images/M/MV5BMGQ5YTM1NmMtYmIxYy00N2VmLWJhZTYtN2EwYTY3MWFhOTczXkEyXkFqcGdeQXVyNTA2NTI0MTY@._V1_SX300.jpg"
+                alt="Batman &amp; Robin"
+              />
+            </div>
+            <div>
+              <span>movie</span>
+              <h3>Batman &amp; Robin</h3>
+            </div>
+          </div>
+          <div class="movie">
+            <div><p>1995</p></div>
+            <div>
+              <img
+                src="https://m.media-amazon.com/images/M/MV5BNDdjYmFiYWEtYzBhZS00YTZkLWFlODgtY2I5MDE0NzZmMDljXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg"
+                alt="Batman Forever"
+              />
+            </div>
+            <div>
+              <span>movie</span>
+              <h3>Batman Forever</h3>
+            </div>
+          </div>
+          <div class="movie">
+            <div><p>2017</p></div>
+            <div>
+              <img
+                src="https://m.media-amazon.com/images/M/MV5BMTcyNTEyOTY0M15BMl5BanBnXkFtZTgwOTAyNzU3MDI@._V1_SX300.jpg"
+                alt="The Lego Batman Movie"
+              />
+            </div>
+            <div>
+              <span>movie</span>
+              <h3>The Lego Batman Movie</h3>
+            </div>
+          </div>
+          <div class="movie">
+            <div><p>1992–1995</p></div>
+            <div>
+              <img
+                src="https://m.media-amazon.com/images/M/MV5BOTM3MTRkZjQtYjBkMy00YWE1LTkxOTQtNDQyNGY0YjYzNzAzXkEyXkFqcGdeQXVyOTgwMzk1MTA@._V1_SX300.jpg"
+                alt="Batman: The Animated Series"
+              />
+            </div>
+            <div>
+              <span>series</span>
+              <h3>Batman: The Animated Series</h3>
+            </div>
+          </div>
+          <div class="movie">
+            <div><p>2016</p></div>
+            <div>
+              <img
+                src="https://m.media-amazon.com/images/M/MV5BOTRlNWQwM2ItNjkyZC00MGI3LThkYjktZmE5N2FlMzcyNTIyXkEyXkFqcGdeQXVyMTEyNzgwMDUw._V1_SX300.jpg"
+                alt="Batman v Superman: Dawn of Justice (Ultimate Edition)"
+              />
+            </div>
+            <div>
+              <span>movie</span>
+              <h3>Batman v Superman: Dawn of Justice (Ultimate Edition)</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
