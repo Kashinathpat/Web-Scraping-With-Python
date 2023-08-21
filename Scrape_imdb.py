@@ -1,5 +1,12 @@
+import openpyxl
 import requests
 from bs4 import BeautifulSoup
+
+excel = openpyxl.Workbook()
+sheet = excel.active
+sheet.title = 'Top 250 Highest Rated Movies'
+
+sheet.append(['Rank', 'Movie Name', 'Year', 'Genre', 'Ratings', 'Runtime'])
 
 for i in range(1, 250, 50):
     html = requests.get(
@@ -15,8 +22,8 @@ for i in range(1, 250, 50):
         rating = item.find('strong').text
         runtime = item.p.find('span', class_='runtime').text
 
-        with open('Top 250 Movies.txt', 'a', encoding='utf-8') as f:
-            f.write(f'Rank : {rank}  \nName : {name} \nYear : {year[-5:-1]} \nGenre : {genre} \nRating : {rating}  \nRuntime : {runtime}  \n\n')
+        sheet.append([rank, name, year[-5:-1], genre, rating, runtime])
 
-print("All Information Stored In File : Top 250 Movies.txt SuccessFully")
+excel.save('IMDB250.xlsx')
+print("All Information Stored In Excel File : IMDB250.xlsx SuccessFully")
 
